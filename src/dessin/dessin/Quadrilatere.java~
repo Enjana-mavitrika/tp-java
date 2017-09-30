@@ -1,0 +1,10 @@
+package dessin;
+
+public class Quadrilatere extends Polygone
+{
+    // constructors
+    public Quadrilatere ()
+    {
+	super(4);
+    }
+}
