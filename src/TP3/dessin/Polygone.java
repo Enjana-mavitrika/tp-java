@@ -3,12 +3,22 @@ import java.lang.Math;
 
 public class Polygone {
     
-  // data
+  /*------------------------------------------------
+   *                                               *
+   *               data                            *
+   *                                               *
+   *-----------------------------------------------*/
+  
   public static final int PERIMETRE_MIN = 600;
   protected Point[]sommets;
 	
     
-  // constructors
+  /*------------------------------------------------
+   *                                               *
+   *                constructor                    *
+   *                                               *
+   *-----------------------------------------------*/
+  
   public Polygone(int nbrCote)
   {
     int i;
@@ -22,7 +32,13 @@ public class Polygone {
     while(this.perimetre() < PERIMETRE_MIN);
   }
 	
-  // methods
+
+  /*------------------------------------------------
+   *                                               *
+   *                  getters                      *
+   *                                               *
+   *-----------------------------------------------*/
+  
   /**
    * Retourne le nombre de son cote
    * 
@@ -48,6 +64,13 @@ public class Polygone {
       return this.sommets[0];
     }
   }
+
+  /*------------------------------------------------
+   *                                               *
+   *                  setters                      *
+   *                                               *
+   *-----------------------------------------------*/
+  
   /**
    * Change le point numero n par Point(x, y) 
    * 
@@ -71,6 +94,12 @@ public class Polygone {
   {
     this.changePoint(n, p.getX(), p.getY());
   }
+
+  /*------------------------------------------------
+   *                                               *
+   *                Methods                        *
+   *                                               *
+   *-----------------------------------------------*/
 	
   /**
    * Retourne son perimetre
@@ -98,37 +127,41 @@ public class Polygone {
   {
     double surface = 0;
     int i;
-    if (nbrCotes() >= 4)
-    {
-      for (i = 1; i < nbrCotes(); i++)
+    if (estConvexe()){
+      if (nbrCotes() >= 4)
       {
-	switch (i)
+	for (i = 1; i < nbrCotes(); i++)
 	{
-	case 1:
-	  surface += heron(getPoint(i), getPoint(2), getPoint(nbrCotes()));
-	  break;
-	case 2:
-	  surface += heron(getPoint(i), getPoint(3), getPoint(4));
-	  i++;
-	  break;
-	default:
-	  surface += heron(getPoint(i), getPoint(i+1), getPoint(2));
-	  break;
+	  switch (i)
+	  {
+	  case 1:
+	    surface += heron(getPoint(i), getPoint(2), getPoint(nbrCotes()));
+	    break;
+	  case 2:
+	    surface += heron(getPoint(i), getPoint(3), getPoint(4));
+	    i++;
+	    break;
+	  default:
+	    surface += heron(getPoint(i), getPoint(i+1), getPoint(2));
+	    break;
+	  }
 	}
+      }
+      else
+      {
+	surface = heron(getPoint(1), getPoint(2), getPoint(3));
       }
     }
     else
     {
-      surface = heron(getPoint(1), getPoint(2), getPoint(3));
+      surface = -1;
     }
 
     return surface;
   }
   
   /*----------------------------------------------------------------------------
-   * 
    * Méthode pour calculer la surface d'un triangle avec la formule d'héron
-   *
    -----------------------------------------------------------------------------*/
   private double heron(Point p1, Point p2, Point p3)
   {
@@ -139,6 +172,28 @@ public class Polygone {
     p = (a + b + c) / 2.0d;
     
     return Math.sqrt(p * (p - a) * (p - b) * (p - c));
+  }
+
+  /**
+   * Methode pour verifier s'il est strictement convexe
+   *
+   * @return bool : true si oui, sinon false
+   */
+  public boolean estConvexe ()
+  {
+    int suivant;
+    int precedant;
+    boolean convexe = true;
+    int signe = getPoint(1).signeAngle(getPoint(2), getPoint(nbrCotes()));
+    int i;
+    for (i = 2; i <= nbrCotes(); i++)
+    {
+      suivant = (i == nbrCotes()) ? 1 : (i+1);
+      precedant = (i-1);
+      convexe &= (signe == getPoint(i).signeAngle(getPoint(suivant), getPoint(precedant)) && signe != Point.ALIGNES);
+    }
+    
+    return convexe;
   }
   
   /* (non-Javadoc)
