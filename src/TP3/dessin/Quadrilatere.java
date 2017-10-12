@@ -2,7 +2,12 @@ package dessin;
 
 public class Quadrilatere extends Polygone
 {
-    // constructors
+  
+  /*------------------------------------------------
+   *                constructors                   *
+   *                                               *
+   *-----------------------------------------------*/
+  
     public Quadrilatere ()
     {
 	super(4);
@@ -16,5 +21,16 @@ public class Quadrilatere extends Polygone
 	super.changePoint(4, p4);
     }
 
+  /*------------------------------------------------
+   *                   Methods                     *
+   *                                               *
+   *-----------------------------------------------*/
+  
+  /* === redefinition de la méthode surface de polygone === */
+  public double surface ()
+  {
+    System.out.println("Calcul de la surface d'un quadrilatere");
+    return super.surface();
+  }
     
 }

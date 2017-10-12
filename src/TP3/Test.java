@@ -10,12 +10,15 @@ public class Test
 
   public static void main(String[] args)
   {
+    
    /*------------------------------------------------
     *                                               *
     *          declaration variables                *
     *                                               *
     *-----------------------------------------------*/
-    Point p = new Point();
+    
+    Point p = new Point(0.5d, 1.5d);
+    Point pt = new Point(1.0d, 0.5d);
     Point p1 = new Point(0.0d, 1.0d);
     Point p2 = new Point(0.0d, 0.0d);
     Point p3 = new Point(2.0d, 1.0d);
@@ -89,6 +92,22 @@ public class Test
     System.out.println("rec.estConvexe = " + rec.estConvexe());
     System.out.println("pol : " + pol);
     System.out.println("pol.estConvexe = " + pol.estConvexe());
+
+    /* ==== Test de la méthode dedans() ==== */
+    afficherTest("méthode dedans()");
+    System.out.println("tri : " + tri);
+    System.out.println("p : " + p);
+    System.out.println("tri.dedans(p) = " + tri.dedans(p));
+    System.out.println("tri : " + tri);
+    System.out.println("pt : " + pt);
+    System.out.println("tri.dedans(pt) = " + tri.dedans(pt));
+
+    /* ==== Test de la méthode plusGrand(Polygone) ==== */
+    afficherTest("méthode plusGrand(Polygone)");
+    System.out.println("tri = " + tri);
+    System.out.println("rec = " + rec);
+    System.out.println("tri.plusGrand(rec) = " + tri.plusGrand(rec));
+    System.out.println("rec.plusGrand(tri) = " + rec.plusGrand(tri));
      
 
 

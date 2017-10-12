@@ -2,11 +2,13 @@ package dessin;
 
 public class Triangle extends Polygone
 {
-    // constructors
-    /**
-     * Creer un triangle a partir de 3 Points
-     *
-     */
+  
+  /*------------------------------------------------
+   *                                               *
+   *                Constructors                   *
+   *                                               *
+   *-----------------------------------------------*/
+  
     public Triangle(Point p1, Point p2, Point p3)
     {
 	super(3);
@@ -15,7 +17,12 @@ public class Triangle extends Polygone
 	super.changePoint(3, p3);
     }
 
-    // methods
+  /*------------------------------------------------
+   *                                               *
+   *                setters                        *
+   *                                               *
+   *-----------------------------------------------*/
+  
     /**
      * Change le coordonne de son n-ieme sommet par (x, y)
      *
@@ -25,6 +32,19 @@ public class Triangle extends Polygone
     {
 	super.changePoint(n, x, y);
     }
+
+  /*------------------------------------------------
+   *                                               *
+   *                Methods                        *
+   *                                               *
+   *-----------------------------------------------*/
+
+  /* === Redefinition de la méthode surface de Polygone === */
+  public double surface ()
+  {
+    System.out.println("Calcule de la surface d'un triangle");
+    return super.surface();
+  }
 
     
     

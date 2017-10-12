@@ -82,8 +82,8 @@ public class Point {
   /**
    * Methode qui retourne le signe de l'angle formé par les 3 points
    * 
-   * @param Point Point : 2 autres points qui forme l'angle
-   * 
+   * @param Point : 1er point qui forme l'angle
+   * @param Point : 2nd point qui forme l'angle
    * @return SAM = -1|ALIGNE = 0|SIAM = 1 : le signe de l'angle
    */
   public final int signeAngle (Point b, Point c)

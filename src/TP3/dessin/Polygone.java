@@ -195,6 +195,38 @@ public class Polygone {
     
     return convexe;
   }
+
+  /**
+   * Methode pour verifier si un Point est strictement inclus dans le polygone
+   *
+   * @param Point : le point à verifier
+   * @return boolean : true si inclus sinon false
+   */
+  public boolean dedans (Point p)
+  {
+    int suivant;
+    int signe = p.signeAngle(getPoint(1), getPoint(2));
+    int i;
+    boolean dedans = true;
+    for (i = 2; i <= nbrCotes(); i++)
+    {
+      suivant = (i == nbrCotes()) ? 1 : i+1;
+      dedans &= (signe == p.signeAngle(getPoint(i),getPoint(suivant))) && (signe != Point.ALIGNES);
+    }
+
+    return dedans;
+  }
+
+  /**
+   * Methode pour verifier si le polygone courant a une surface plus grande que le polygone en parametre
+   *
+   * @param Polygone 
+   * @return boolean : true si le polygone courant a une surface plus grande sinon false
+   */
+  public boolean plusGrand (Polygone p)
+  {
+    return this.surface() > p.surface();
+  }
   
   /* (non-Javadoc)
    * @see java.lang.Object#toString()
@@ -203,11 +235,12 @@ public class Polygone {
   {
     int i;
     String str = new String();
-    str += this.getClass().getName() + " à " + this.nbrCotes() + " cotés :\n";
+    str += "\n" + this.getClass().getName() + " à " + this.nbrCotes() + " cotés :\n";
     for (i = 1; i <= this.nbrCotes(); i++)
     {
       str += this.getPoint(i) + ", ";
     }
+    str += "Surface = " + this.surface();
 		
     return str;
   }
