@@ -12,12 +12,9 @@ public class Rectangle extends Quadrilatere
   public Rectangle (Point p1, Point p2)
   {
     super();
-    Point tabPoint[] = new Point[2];
-    tabPoint = this.construire(p1, p2);
-    this.changePoint(1, p1); // mettre à jour coordonne sommet haut gauche
-    this.changePoint(2, tabPoint[0]); // mettre à jour coordone sommet haut droite
+    this.changePoint(1, p1);      // mettre à jour coordonne sommet haut gauche
     this.changePoint(3, p2);	  // mettre à jour coordone sommet bas droite
-    this.changePoint(4, tabPoint[1]); // mettre à jour coordone sommet bas gauche
+    construire (p1, p2);	  // mettre à jour les 2 autres sommets pour former un rectangle avec les 2 sommets en param
   }
 
   /*------------------------------------------------
@@ -26,13 +23,10 @@ public class Rectangle extends Quadrilatere
    *                                               *
    *-----------------------------------------------*/
   
-  private Point[] construire (Point p1, Point p2)
+  private void construire (Point p1, Point p2)
   {
-    Point tabPoint[] = new Point[2];
-    tabPoint[0] = new Point(p2.getX(), p1.getY());
-    tabPoint[1] = new Point((p1.getX() + p2.getX() - tabPoint[0].getX()), (p1.getY() + p2.getY() - tabPoint[0].getY()));
-
-    return tabPoint;
+    this.changePoint(2, new Point(p2.getX(), p1.getY()));
+    this.changePoint(4, new Point((p1.getX() + p2.getX() - p2.getX()), (p1.getY() + p2.getY() - p1.getY())));
   }
   public double hauteur ()
   {

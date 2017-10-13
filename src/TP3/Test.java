@@ -25,6 +25,7 @@ public class Test
     Polygone pol = new Polygone(4);
     Polygone pol1 = new Polygone(3);
     Triangle tri = new Triangle(new Point(0.0d, 0.0d), p1, new Point(3.0d, 0.0d));
+    Polygone tri_po = new Triangle(new Point (0.0d, 0.0d), new Point (0.0d, 1.0d), new Point (1.0d, 0.0d));
     Quadrilatere quad = new Quadrilatere(p, p1, p2, p3);
     Rectangle rec = new Rectangle(p1, new Point(3.0d, 0.0d));
     EnsemblePolygone ensPol = new EnsemblePolygone(3);
@@ -168,7 +169,16 @@ public class Test
     System.out.println("Somme des perimetres de ses polygones = " + ensPol.sommePerimetres());
     afficherTest("methode affiche()");
     ensPol.affiche();
-	
+
+
+    /*-----------------------------------------------
+    *                                               *
+    * test du comportement polymorphe de surface()  *
+    *                                               *
+    *-----------------------------------------------*/
+    afficherTest("comportement polymorphe de surface()");
+    System.out.println("Triangle surclassé en Polygone tri_po = " + tri_po);
+
 	
   }
 

@@ -2,12 +2,22 @@ package dessin;
 
 public class EnsemblePolygone
 {
-  // data
+  
+  /*------------------------------------------------
+   *                   data                        *
+   *                                               *
+   *-----------------------------------------------*/
+  
   private final int TAILLE_MAX;
   private int placeRestante; // place restante dans l'ensemble
   private Polygone polygones[];;
 
-  // constructors
+  
+  /*------------------------------------------------
+   *               constructors                    *
+   *                                               *
+   *-----------------------------------------------*/
+  
   public EnsemblePolygone (int tailleMax)
   {
     if (tailleMax < 0)
@@ -19,8 +29,13 @@ public class EnsemblePolygone
     polygones = new Polygone[tailleMax];
     placeRestante = tailleMax;
   }
+  
 
-  // methods
+  /*------------------------------------------------
+   *                   methods                     *
+   *                                               *
+   *-----------------------------------------------*/
+  
   /**
    * Pour ajoute un nouveau objet Polygone à condition que sa capacité n'est pas dépassé.
    *
