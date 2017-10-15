@@ -1,3 +1,9 @@
+/*---------------------------------------------------------
+ !                                                        !
+ ! ** historique **                                       !
+ !     methode sommeSurface  à tester !!                  !
+ !                                                        !
+ ---------------------------------------------------------*/
 package dessin;
 
 public class EnsemblePolygone
@@ -8,9 +14,9 @@ public class EnsemblePolygone
    *                                               *
    *-----------------------------------------------*/
   
-  private final int TAILLE_MAX;
-  private int placeRestante; // place restante dans l'ensemble
-  private Polygone polygones[];;
+  protected final int TAILLE_MAX;
+  protected int placeRestante; // place restante dans l'ensemble
+  protected Polygone polygones[];;
 
   
   /*------------------------------------------------
@@ -61,15 +67,28 @@ public class EnsemblePolygone
    */
   public double  sommePerimetres ()
   {
-    int i;
     double somme = 0.0d;
-    for (i = 0; i < TAILLE_MAX; i++)
+    for (int i = 0; i < TAILLE_MAX; i++)
     {
       somme += polygones[i].perimetre();
     }
 
     return somme;
   }
+
+  /**
+   * Methode qui calcul la somme des surfaces des polygones convexes de l'ensemble
+   *
+   * @return double : la somme des surfaces
+   */
+  public double sommeSurface ()
+  {
+    double somme = 0.0d;
+    for (int i = 0; i < TAILLE_MAX; i++)
+      somme += (polygones[i].estConvexe()) ? polygones[i].surface() : 0.0d;
+    return somme;
+  }
+  
   /**
    * Pour afficher les polygones qu'il contient
    */
@@ -81,7 +100,7 @@ public class EnsemblePolygone
   {
     int i;
     String str = new String();
-    str = " Ensemble de polygone : \n";
+    str = "\n Ensemble de polygone ("+ TAILLE_MAX +") : \n";
     for (i = 0; i < TAILLE_MAX; i++)
     {
       str += polygones[i] + "; ";

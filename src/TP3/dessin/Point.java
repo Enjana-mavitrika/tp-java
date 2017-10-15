@@ -1,4 +1,5 @@
 package dessin;
+import java.lang.Math;
 
 public class Point {
   

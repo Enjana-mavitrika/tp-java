@@ -4,6 +4,7 @@ import dessin.Triangle;
 import dessin.Quadrilatere;
 import dessin.Rectangle;
 import dessin.EnsemblePolygone;
+import dessin.EnsemblePolygoneAlea;
 
 public class Test
 {
@@ -29,6 +30,7 @@ public class Test
     Quadrilatere quad = new Quadrilatere(p, p1, p2, p3);
     Rectangle rec = new Rectangle(p1, new Point(3.0d, 0.0d));
     EnsemblePolygone ensPol = new EnsemblePolygone(3);
+    EnsemblePolygoneAlea ensPolAlea = new EnsemblePolygoneAlea();
 	
 		
     
@@ -178,6 +180,24 @@ public class Test
     *-----------------------------------------------*/
     afficherTest("comportement polymorphe de surface()");
     System.out.println("Triangle surclassé en Polygone tri_po = " + tri_po);
+
+    
+    /*-----------------------------------------------
+    *                                               *
+    *     TEST DE LA CLASSE ENSEMBLEPOLYGONEALEA    *
+    *                                               *
+    *-----------------------------------------------*/
+    afficherTest("ENSEMBLEPOLYGONEALEA");
+    afficherTest("méthode affiche() ");
+    ensPolAlea.affiche();
+
+    /*---------------------------------------------------
+    *                                                   *
+    * test du comportement polymorphe de sommeSurface() *
+    *                                                   *
+    *---------------------------------------------------*/
+    afficherTest("méthode sommeSurface()");
+    System.out.println("Somme surface ensPolAlea (Objet EnsemblePolygoneAlea) = " + ensPolAlea.sommeSurface());
 
 	
   }
