@@ -60,6 +60,11 @@ public class Point {
   {
     this.y = y;
   }
+  public void copie (Point p)
+  {
+    this.x = p.getX();
+    this.y = p.getY();
+  }
   
   /*------------------------------------------------
    *                   methods                     *
@@ -77,7 +82,7 @@ public class Point {
   }
   public String toString()
   {
-    return " x = " + this.x + " y = " +this.y;
+    return " (x = " + this.x + ", y = " + this.y + ")" ;
   }
   
   /**

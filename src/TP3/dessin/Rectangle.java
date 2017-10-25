@@ -2,6 +2,12 @@ package dessin;
 
 public class Rectangle extends Quadrilatere
 {
+  /*------------------------------------------------
+   *                data                           *
+   *                                               *
+   *-----------------------------------------------*/
+  public static int nbrRect = 0;
+  
   
   /*------------------------------------------------
    *                                               *
@@ -13,6 +19,9 @@ public class Rectangle extends Quadrilatere
   {
     super();
     construire (p1, p2);	  // mettre à jour les 2 autres sommets pour former un rectangle avec les 2 sommets en param
+    nbrRect++;
+    NUM_TYPE_FORME = nbrRect;
+    nbrQuad--;
   }
 
   /*------------------------------------------------

@@ -1,14 +1,15 @@
 package dessin;
 import java.lang.Math;
 
-public class Polygone {
+public class Polygone extends Forme
+{
     
   /*------------------------------------------------
    *                                               *
    *               data                            *
    *                                               *
    *-----------------------------------------------*/
-  
+  public static int nbrPoly = 0;
   public static final int PERIMETRE_MIN = 600;
   protected Point[]sommets;
 	
@@ -30,6 +31,8 @@ public class Polygone {
       }
     }
     while(this.perimetre() < PERIMETRE_MIN);
+    nbrPoly++;
+    NUM_TYPE_FORME = nbrPoly;
   }
 	
 
@@ -217,16 +220,63 @@ public class Polygone {
     return dedans;
   }
 
+
+
   /**
-   * Methode pour verifier si le polygone courant a une surface plus grande que le polygone en parametre
+   * Méthode pour verifier si le polygone en parametre est eguale au polygone courant
    *
    * @param Polygone 
-   * @return boolean : true si le polygone courant a une surface plus grande sinon false
+   * @return boolean
    */
-  public boolean plusGrand (Polygone p)
+  public boolean equals (Polygone pol)
   {
-    return this.surface() > p.surface();
+    Point pointTmp = new Point();
+    Point pointTmp2 = new Point();
+    boolean equals = false;
+    System.out.println(this + " surface - pol.surface = " + Math.abs(Math.round(surface()) - Math.round(pol.surface())));
+    if (nbrCotes() != pol.nbrCotes() || Math.abs(Math.round(surface()) - Math.round(pol.surface())) > 0.01 )
+      return equals;
+    for (int i = 0; i < nbrCotes(); i++)
+    {
+      pointTmp2.copie(pol.getPoint(nbrCotes()));
+      for (int j = 1; j <= nbrCotes(); j += 2)
+      {	       
+	pointTmp.copie(pol.getPoint(j));
+	pol.changePoint(j, pointTmp2);
+	if (j + 1 <= nbrCotes())
+	{ // eviter erreur cas nbrCotes impair
+	  pointTmp2.copie(pol.getPoint(j + 1));
+	  pol.changePoint(j + 1, pointTmp);
+	}
+      }
+      System.out.println("[debug equals] : " + pol + " equals_aux(pol) = " + equals_aux(pol));
+      // verifier si pol décaler d'une position est egal au polygone courant
+      if (equals_aux(pol))
+	equals = true;
+    }
+    return equals;
   }
+  // methode auxiliaire de la méthode equals
+  private boolean equals_aux (Polygone pol)
+  {
+    double dy, dx;
+    boolean equals = true;
+    // verifier translation
+    dx = getPoint(1).getX() - pol.getPoint(1).getX();
+    dy = getPoint(1).getY() - pol.getPoint(1).getY();
+    for (int i = 2; i <= nbrCotes(); i++)
+    {
+      equals &= (dx == getPoint(i).getX() - pol.getPoint(i).getX()) && (dy == getPoint(i).getY() - pol.getPoint(i).getY());
+    }
+    return equals;
+  }
+
+  public void translater(double dx, double dy)
+  {
+    for (int i = 1; i <= nbrCotes(); i++)
+      changePoint(i, dx + getPoint(i).getX(), dy + getPoint(i).getY());
+  }
+  
   
   /* (non-Javadoc)
    * @see java.lang.Object#toString()
@@ -235,7 +285,7 @@ public class Polygone {
   {
     int i;
     String str = new String();
-    str += "\n" + this.getClass().getName() + " à " + this.nbrCotes() + " cotés :\n";
+    str += super.afficher();
     for (i = 1; i <= this.nbrCotes(); i++)
     {
       str += this.getPoint(i) + ", ";

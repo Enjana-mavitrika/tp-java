@@ -2,6 +2,12 @@ package dessin;
 
 public class Triangle extends Polygone
 {
+  /*------------------------------------------------
+   *                data                           *
+   *                                               *
+   *-----------------------------------------------*/
+  public static int nbrTri = 0;
+  
   
   /*------------------------------------------------
    *                                               *
@@ -12,9 +18,12 @@ public class Triangle extends Polygone
     public Triangle(Point p1, Point p2, Point p3)
     {
 	super(3);
-	super.changePoint(1, p1);
-	super.changePoint(2, p2);
-	super.changePoint(3, p3);
+	changePoint(1, p1);
+	changePoint(2, p2);
+	changePoint(3, p3);
+	nbrTri++;
+	NUM_TYPE_FORME = nbrTri;
+	nbrPoly--;
     }
 
   /*------------------------------------------------
@@ -30,7 +39,7 @@ public class Triangle extends Polygone
      */
     public void changeSommet(int n, double x, double y)
     {
-	super.changePoint(n, x, y);
+	changePoint(n, x, y);
     }
 
   /*------------------------------------------------
@@ -42,7 +51,7 @@ public class Triangle extends Polygone
   /* === Redefinition de la méthode surface de Polygone === */
   public double surface ()
   {
-    System.out.println("Calcule de la surface d'un triangle");
+    System.out.println("Calcul de la surface d'un triangle");
     return super.surface();
   }
 
