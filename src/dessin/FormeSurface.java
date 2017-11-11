@@ -1,6 +1,8 @@
 package dessin;
 
-public abstract class Forme
+import java.awt.Color;
+
+public abstract class FormeSurface implements Forme, Comparable, Dessinable
 {
 
   /*------------------------------------------------
@@ -10,8 +12,10 @@ public abstract class Forme
   public static int nbrForme = 0; 
   private final int NUM_FORME;
   protected int NUM_TYPE_FORME;
+  protected Color couleur = COULEUR;
 
-  public Forme()
+
+  public FormeSurface()
   {
     nbrForme++;
     NUM_FORME = nbrForme;
@@ -22,6 +26,10 @@ public abstract class Forme
    *                   methods                     *
    *                                               *
    *-----------------------------------------------*/
+  
+  public void setCouleur(Color c) {couleur = c;}
+
+  
   /**
    * Methode pour verifier si le forme courant a une surface plus grande que le forme en parametre
    *
@@ -37,14 +45,16 @@ public abstract class Forme
   {
     return "Forme (n° " + NUM_FORME + "), " + this.getClass().getName() + "(n° " + NUM_TYPE_FORME + ") : ";
   }
+  
+  public int compareTo(Object o)
+  {
+	  FormeSurface f = (FormeSurface)o;
+	  return (int)(surface() - f.surface());
+  }
 
 
   /*------------------------------------------------
    *            abstract methods                   *
    *                                               *
    *-----------------------------------------------*/
-  public abstract double perimetre();
-  public abstract double surface();
-  public abstract boolean dedans(Point p);
-  public abstract void translater(double dx, double dy);
 }

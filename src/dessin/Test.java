@@ -1,4 +1,4 @@
-import dessin.Point;
+package dessin;
 import dessin.Polygone;
 import dessin.Triangle;
 import dessin.Quadrilatere;
@@ -20,7 +20,7 @@ public class Test
     *          declaration variables                *
     *                                               *
     *-----------------------------------------------*/
-    
+	  
     Point p = new Point(0.5d, 1.5d);
     Point pt = new Point(1.0d, 0.5d);
     Point p1 = new Point(0.0d, 1.0d);

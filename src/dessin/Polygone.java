@@ -1,7 +1,8 @@
 package dessin;
 import java.lang.Math;
-
-public class Polygone extends Forme
+import java.awt.Color;
+import java.awt.Graphics;
+public class Polygone extends FormeSurface
 {
     
   /*------------------------------------------------
@@ -10,7 +11,7 @@ public class Polygone extends Forme
    *                                               *
    *-----------------------------------------------*/
   public static int nbrPoly = 0;
-  public static final int PERIMETRE_MIN = 600;
+  public static final int PERIMETRE_MIN = 300;
   protected Point[]sommets;
 	
     
@@ -22,15 +23,24 @@ public class Polygone extends Forme
   
   public Polygone(int nbrCote)
   {
-    int i;
-    this.sommets = new Point[nbrCote];
-    do{
-      for (i = 0; i < nbrCote; i++)
-      {
-	this.sommets[i] = new Point();
-      }
-    }
-    while(this.perimetre() < PERIMETRE_MIN);
+	  double x, y;
+	  this.sommets = new Point[nbrCote];
+	  do{
+		  // construire un polygone convexe		  
+		  sommets[0] = new Point();
+		  y = Math.random() * 1000 + getPoint(1).getY();
+		  sommets[2] = new Point(Math.random() * 1000, y);
+		  x = (getPoint(1).getX() < getPoint(3).getX()) ? Math.random() * getPoint(1).getX() : Math.random() * getPoint(3).getX();
+		  y = Math.random() * getPoint(3).getY() + getPoint(1).getY();
+		  sommets[1] = new Point(x, y);
+		  for (int i = 3; i < nbrCote; i++)
+		  {
+			  x = (getPoint(i).getX() > getPoint(1).getX()) ? Math.random() * 1000 + getPoint(i).getX() : Math.random() * 1000 + getPoint(1).getX();
+			  y = Math.random() * getPoint(i).getY() + getPoint(1).getY();
+			  sommets[i] = new Point(x, y);
+		  }
+	  }
+    while(this.perimetre() < PERIMETRE_MIN && !estConvexe());
     nbrPoly++;
     NUM_TYPE_FORME = nbrPoly;
   }
@@ -293,6 +303,19 @@ public class Polygone extends Forme
     str += "Surface = " + this.surface();
 		
     return str;
+  }
+  
+  public void seDessiner(Graphics g)
+  {
+	  int endLoop = sommets.length - 1;
+	  //g.drawString(toString(), (int)getPoint(1).getX(), (int)getPoint(1).getY());
+	  g.setColor(couleur);
+	  g.drawLine((int)getPoint(sommets.length).getX(), (int)getPoint(sommets.length).getY(), (int)getPoint(1).getX(), (int)getPoint(1).getY());
+	  for (int i = 1; i <= endLoop; i++) 
+	  {
+		  g.drawLine((int)getPoint(i).getX(), (int)getPoint(i).getY(), (int)getPoint(i + 1).getX(), (int)getPoint(i + 1).getY());
+	  }
+	  g.setColor(Color.BLACK);
   }
 	
 }
