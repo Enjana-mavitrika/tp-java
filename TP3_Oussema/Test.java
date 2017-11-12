@@ -1,11 +1,18 @@
 package dessin;
 
+
 import dessin.Point;
 import dessin.Polygone;
 import dessin.Triangle;
 import dessin.Quadrilatere;
 import dessin.Rectangle;
 import dessin.EnsemblePolygone;
+import dessin.DessinFormes;
+
+
+
+
+
 
 public class Test
 {
@@ -23,6 +30,7 @@ public class Test
 	Quadrilatere quad = new Quadrilatere(p, p1, p2, p3);
 	Rectangle rec = new Rectangle(p1, new Point(3.0d, 0.0d));
 	EnsemblePolygone ensPol = new EnsemblePolygone(3);
+	EnsembleForme ensForm= new EnsembleForme(3);
 	
 		
 	/* test de la classe Point */
@@ -105,14 +113,41 @@ public class Test
 	
 	System.out.println("----EnsemblePolygoneAlea-----");
 	
-	EnsemblePolygoneAlea Ensa=new EnsemblePolygoneAlea(10);
+	//EnsemblePolygoneAlea Ensa=new EnsemblePolygoneAlea(10);
 	
-	System.out.println("Somme des Surface de EnsemblePolygoneAlea= "+Ensa.sommeSurface());
+	//System.out.println("Somme des Surface de EnsemblePolygoneAlea= "+Ensa.sommeSurface());
 
 	
+	
+	
+	
+	
+	  System.out.println("#####################------TP5-----#######################");
+	  
+	  afficherTest("CLASSE ENSEMBLE FORME");
+		System.out.println(ensForm);
+		
+		ensForm.ajouterForme(tri);
+		ensForm.ajouterForme(rec);
+		
+		ensForm.ajouterForme(quad);
+		ensForm.ajouterForme(pol1);
+		System.out.println(ensForm);
+		afficherTest("methode sommePerimetres()");
+		System.out.println("Somme des perimetres de ses polygones = " + ensForm.sommePerimetres());
+		afficherTest("methode affiche()");
+		ensPol.affiche();
+	
+		
+		
+		System.out.println("#####################------TP6-----#######################");
+		 
 	
     }
 
+    
+    
+    
 
     
     private static void afficherTest(String nomTest)
@@ -120,6 +155,9 @@ public class Test
 	System.out.println("\n\n*** Test de " + nomTest + "***");
 	System.out.println("====================================");
     }
+    
+  
+    
     
     
     

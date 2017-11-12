@@ -1,7 +1,8 @@
 package dessin;
+import java.awt.*;
 import java.lang.Math;
 
-public class Polygone extends Point {
+public class Polygone extends Forme {
     
     // data
     public static final int PERIMETRE_MIN = 600;
@@ -141,31 +142,30 @@ public class Polygone extends Point {
      */
     
   
-    public Boolean estConvexe()
+    
+    
+    
+    public boolean estConvexe ()
     {
-    	
-    int j=2,k=3,res,res2;
-    boolean test=true;
- res=this.singeAngle(this.getPoint(j),this.getPoint(k));
-
- if (res==0) { return false; }
-
- 	while (k<this.nbrCotes()&&test==true)
- 	{
- 		j++;
- 		k++;
- 		res2=this.singeAngle(this.getPoint(j),this.getPoint(k));
- 		 
- 		if (res!=res2)
- 		{
- 		test=false;
- 		}
- 	}
- 
-    return test;
-    }
+      int suivant;
+      int precedant;
+      boolean convexe = true;
+      int signe = getPoint(1).singeAngle(getPoint(2), getPoint(nbrCotes()));
+      int i;
+      for (i = 2; i <= nbrCotes(); i++)
+      {
+        suivant = (i == nbrCotes()) ? 1 : (i+1);
+        precedant = (i-1);
+        convexe &= (signe == getPoint(i).singeAngle(getPoint(suivant), getPoint(precedant)) && signe != Point.ALIGNES);
+      }
+      
+      return convexe;
+  }
 	
-    public boolean plusGrand (Polygone Poly)
+  
+	
+
+	public boolean plusGrand (Polygone Poly)
     {
    if (this.surface()>Poly.surface()) 	
    {
@@ -173,12 +173,13 @@ public class Polygone extends Point {
    }
    return false;
     }
+	
 
     public String toString()
     {
 	int i;
 	String str = new String();
-	str += this.getClass().getName() + " a  " + this.nbrCotes() + " cotes :\n";
+	str += this.getClass().getName() + " aï¿½ " + this.nbrCotes() + " cotes :\n";
 	for (i = 1; i <= this.nbrCotes(); i++)
 	    {
 		str += this.getPoint(i) + ", ";
@@ -187,5 +188,70 @@ public class Polygone extends Point {
 	str +="\n Surface de "+getClass().getName()+"  =" +this.surface()+"\n";
 	return str;
     }
+
+    public boolean dedans (Point p)
+    {
+      int suivant;
+      int signe = p.singeAngle(getPoint(1), getPoint(2));
+      int i;
+      boolean dedans = true;
+      for (i = 2; i <= nbrCotes(); i++)
+      {
+        suivant = (i == nbrCotes()) ? 1 : i+1;
+        dedans &= (signe == p.singeAngle(getPoint(i),getPoint(suivant))) && (signe != Point.ALIGNES);
+      }
+
+      return dedans;
+    }
+
+    public void seDessiner(Graphics g)
+	{	
+    	
+		
+    	Point origin = new Point(WIDTH_MAX/2,HEIGHT_MAX/2);
+		int i=0;
+    	int xx=(int)origin.getX();
+    	int yy=(int)origin.getX();
+    	
+    	
+    	while (i<nbrCotes()-1) {
+    		 System.out.print("----" +i+"\n");
+   
+    		 int X=(int)(sommets[i].getX());
+ 	    	int Y=(int)(sommets[i].getY());
+ 	    	
+ 	    	//System.out.print("icixx:"+xx);
+    		//System.out.print(" iciyy:"+yy+"\n");
+ 	    	
+ 	    	X=X+xx;
+	    	Y=Y+yy;
+	    	//System.out.print("iciX:"+X);
+    		//System.out.print(" iciY:"+Y+"\n");
+    		
+    	
+    		g.drawLine(xx, yy, X, Y);
+    		
+    			 
+    		 xx=X;
+     		yy=Y;
+     		 i++;
+    	}
+    	int xx2=(int)origin.getX();
+    	int yy2=(int)origin.getX();
+    	g.drawLine(xx2, yy2, xx, yy);
+ 
+		
+    	
+
+	
+	}    
+    
+
+    public void translater(double dx, double dy)
+    {
+      for (int i = 1; i <= nbrCotes(); i++)
+        changePoint(i, dx + getPoint(i).getX(), dy + getPoint(i).getY());
+  }
+    
 
 }

@@ -1,24 +1,24 @@
 package dessin;
 
-public class EnsemblePolygone extends EnsembleForme
+import java.awt.Graphics;
+
+public class EnsembleForme
 {
     // data
     private final int TAILLE_MAX;
     private int placeRestante; // place restante dans l'ensemble
-    private Polygone polygones[];;
+    private Forme formes[];
 
     // constructors
-    public EnsemblePolygone (int tailleMax)
+    public EnsembleForme (int tailleMax)
     {
-    	super(tailleMax);
-    	
 	if (tailleMax < 0)
 	    {
 		System.out.println("taille de l'ensemble invalide donc a creer un ensemble de taille 1");
 		tailleMax = 1;
 	    }
 	TAILLE_MAX = tailleMax;
-	polygones = new Polygone[tailleMax];
+	formes = new Forme[tailleMax];
 	placeRestante = tailleMax;
     }
 
@@ -28,11 +28,11 @@ public class EnsemblePolygone extends EnsembleForme
      *
      * @param Polygone nouveau objet Polygone
      */
-    public void ajouterPolygone (Polygone pol)
+    public void ajouterForme (Forme  form)
     {
 	if (placeRestante > 0)
 	    {
-		this.polygones[TAILLE_MAX - placeRestante] = pol;
+		this.formes[TAILLE_MAX - placeRestante] = form;
 		placeRestante --;
 	    }
 	else
@@ -52,7 +52,7 @@ public class EnsemblePolygone extends EnsembleForme
 	double somme = 0.0d;
 	for (i = 0; i < TAILLE_MAX; i++)
 	    {
-		somme += polygones[i].perimetre();
+		somme += formes[i].perimetre();
 	    }
 
 	return somme;
@@ -70,11 +70,11 @@ public class EnsemblePolygone extends EnsembleForme
 	String str = new String();
 for (i = 0; i < TAILLE_MAX; i++)
 	    {
-		str += polygones[i] + "; ";
-	    }	str = " Ensemble de polygone : \n";
+		str += formes[i] + "; ";
+	    }	str = " Ensemble de Forme : \n";
 	for (i = 0; i < TAILLE_MAX; i++)
 	    {
-		str += polygones[i] + "; ";
+		str += formes[i] + "; ";
 	    }
 
 	return str;
@@ -85,14 +85,25 @@ for (i = 0; i < TAILLE_MAX; i++)
 	
 		for(int i=0;i<TAILLE_MAX;i++)
 		{ 
-		if (polygones[i].surface()!=-1)
+		if (formes[i].surface()!=-1)
 		{
-		surface+=polygones[i].surface();
+		surface+=formes[i].surface();
 		}
 		}
 		return surface;
 	}
 
-}
+	
 
+    public void  toutDessiner(Graphics g){
+      	
+  	  for(int i=0;i<TAILLE_MAX;i++) {
+  
+  formes[i].seDessiner(g);
+      }
+      
+  }
+
+  
+}
 
